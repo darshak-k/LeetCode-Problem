@@ -37,3 +37,21 @@ Explanation: An optimal solution is as follows:
 The total score is 50 + 15 - 9 + 4 + 42 = 102.
 
 */
+
+class Solution {
+    
+    public int maximumScore(int[] nums, int[] multipliers) {
+        int dp[] = new int[multipliers.length + 1];
+        
+        int a = 0, b = nums.length - 1;
+        for(int i = multipliers.length - 1; i >= 0; i--){
+            int next[] = dp.clone();
+            for(int  j = i; j >= 0; j--){
+                dp[j] = Math.max(multipliers[i] * nums[j] + next[j + 1],
+                                   multipliers[i] * nums[nums.length - 1 - (i - j)] + next[j]);
+            }
+            
+        }
+        return dp[0];
+    }
+}
